@@ -1,0 +1,20 @@
+:root{ --panel:#2b2d33; --panel-b:#3a3c43; }
+.container{ max-width:px; }   
+
+.section-title{ font-weight:900; margin:24px 0 14px; }
+.btn-chip{ background:#2a2b30; color:#fff; border:1px solid #3a3b41; padding:.5rem 1rem; border-radius:999px; font-weight:700; }
+.btn-chip.active,.btn-chip:hover{ background:#f6b343; color:#111; border-color:#f6b343; }
+
+.product-card{ position:relative; border-radius:18px; overflow:hidden; }
+.product-img{ width:60%; height:240px; object-fit:cover; display:block; border-radius:18px; }
+@media (min-width:768px){ .product-img{ height:240px; } }
+@media (min-width:1200px){ .product-img{ height:240px; } }
+
+.product-panel{
+  position:absolute; right:12px; bottom:12px; width:min(88%,340px);
+  background:var(--panel); border:1px solid var(--panel-b); color:#fff;
+  border-radius:16px; padding:14px; box-shadow:0 6px 18px rgba(0,0,0,.35);
+}
+.price{ color:#f6b343; font-weight:900; } .price-unit{ font-size:.8rem; color:#b7bac4; }
+.btn-panel{ background:#3a3c43; color:#fff; border:1px solid #4a4c55; padding:.4rem .9rem; border-radius:.7rem; font-weight:700; }
+.checkout-bar{ position:sticky; bottom:0; background:rgba(0,0,0,.85); backdrop-filter:blur(6px); border-top:1px solid #2a2b30; padding:.6rem 0; z-index:1030; }
