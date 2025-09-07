@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard con Sidebar</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      height: 100vh;
+      background: #2c3e50;
+      color: white;
+      padding-top: 30px;
+      position: fixed;
+      left: 0;
+      top: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      flex-grow: 1;
+    }
+    .sidebar ul li {
+      padding: 15px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .sidebar ul li:hover {
+      background: #34495e;
+    }
+    .sidebar ul li a {
+      color: white;
+      text-decoration: none;
+      display: block;
+    }
+
+    .sidebar .logout {
+      padding: 20px;
+    }
+    .sidebar .logout a {
+      display: block;
+      background: #f39c12;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    /* Contenido */
+    .content {
+      margin-left: 220px;
+      padding: 20px;
+      width: calc(100% - 220px);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .charts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .chart-container {
+      background: white;
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .chart-container canvas {
+      width: 100% !important;
+      height: auto !important;
+      max-height: 280px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>Golden Burger</h2>
+    <ul>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="gestorClientes.html">Clientes</a></li>
+      <li><a href="gestorPedidos.html">Pedidos</a></li>
+      <li><a href="productos.html">Productos</a></li>
+    </ul>
+
+    <div class="logout">
+      <a href="../login.html">Cerrar Sesión</a>
+    </div>
+  </div>
+
+  <!-- Contenido -->
+  <div class="content">
+    <h1>Bienvenido, Administrador</h1>
+
+    <!-- Tarjetas -->
+    <div class="cards">
+      <div class="card">
+        <h3>Ventas Totales</h3>
+        <p>$120,500</p>
+      </div>
+      <div class="card">
+        <h3>Usuarios Registrados</h3>
+        <p>1,245</p>
+      </div>
+      <div class="card">
+        <h3>Nuevos Clientes</h3>
+        <p>58</p>
+      </div>
+      <div class="card">
+        <h3>Tickets Soporte</h3>
+        <p>14</p>
+      </div>
+    </div>
+
+    <!-- Gráficos -->
+    <div class="charts">
+      <div class="chart-container">
+        <h4>Ventas por Mes</h4>
+        <canvas id="ventasMes"></canvas>
+      </div>
+      <div class="chart-container">
+        <h4>Progreso Objetivos</h4>
+        <canvas id="progreso"></canvas>
+      </div>
+      <div class="chart-container">
+        <h4>Ventas por Categoría</h4>
+        <canvas id="categorias"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Gráfico de Barras: Ventas por Mes
+    new Chart(document.getElementById('ventasMes'), {
+      type: 'bar',
+      data: {
+        labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
+        datasets: [{
+          label: 'Ventas ($)',
+          data: [12000, 15000, 18000, 10000, 22000, 25000],
+          backgroundColor: '#f39c12'
+        }]
+      },
+      options: { 
+        responsive: true, 
+        maintainAspectRatio: false,
+        plugins: {
+          datalabels: {
+            color: '#000',
+            anchor: 'end',
+            align: 'top'
+          }
+        }
+      },
+      plugins: [ChartDataLabels]
+    });
+
+    // Gráfico Circular: Progreso Objetivos
+    new Chart(document.getElementById('progreso'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Completado', 'Pendiente'],
+        datasets: [{
+          data: [75, 25],
+          backgroundColor: ['#27ae60', '#c0392b']
+        }]
+      },
+      options: { 
+        responsive: true, 
+        maintainAspectRatio: false,
+        plugins: {
+          datalabels: {
+            color: '#fff',
+            formatter: (value) => value + '%'
+          }
+        }
+      },
+      plugins: [ChartDataLabels]
+    });
+
+    // Gráfico de Torta: Ventas por Categoría
+    new Chart(document.getElementById('categorias'), {
+      type: 'pie',
+      data: {
+        labels: ['Ropa', 'Calzado', 'Accesorios'],
+        datasets: [{
+          data: [40, 35, 25],
+          backgroundColor: ['#2980b9', '#f1c40f', '#8e44ad']
+        }]
+      },
+      options: { 
+        responsive: true, 
+        maintainAspectRatio: false,
+        plugins: {
+          datalabels: {
+            color: '#fff',
+            formatter: (value, ctx) => {
+              let total = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+              let porcentaje = ((value / total) * 100).toFixed(1) + "%";
+              return porcentaje;
+            }
+          }
+        }
+      },
+      plugins: [ChartDataLabels]
+    });
+  </script>
+</body>
+</html>
