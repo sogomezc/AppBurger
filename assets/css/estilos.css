@@ -26,3 +26,19 @@
   border-radius: 0.5rem;
   transition: background 0.2s, color 0.2s;
 }
+
+/* --- Estilos para el Footer --- */
+.site-footer {
+  background-color: #0d0d0d; /* Un negro un poco más suave que el fondo */
+  border-top: 1px solid #2a2b30;
+  color: #adb5bd; /* Texto de color gris claro */
+}
+
+.site-footer h5 {
+  font-weight: bold;
+}
+
+.site-footer .list-unstyled a:hover i {
+  color: #ffc107; /* El ícono se vuelve amarillo al pasar el mouse */
+  transition: color 0.2s;
+}
