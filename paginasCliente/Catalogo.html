@@ -8,23 +8,26 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <link rel="stylesheet" href="estilos.css">
+  <link rel="stylesheet" href="/assets/css/estilos.css">
 
 </head>
 <body class="bg-black text-light">
 
-<!-- NAV -->
+<!-- Aqui incorporo el nuevo header dinámico  y abajo coloco el script-->
+<header id="header"></header>
+<!-- NAV estatico anterior
 <nav class="navbar navbar-dark bg-dark sticky-top shadow-sm rounded-bottom-4">
   <div class="container">
     <a class="navbar-brand d-flex align-items-center gap-2" href="#top">
       <img src="Logo.JPG" height="26" alt="Golden Burger"><strong>GOLDEN <span class="text-warning">BURGER</span></strong>
     </a>
-    <!-- Boton para hacer inicio de sesion -->
+    Boton para hacer inicio de sesion 
     <a href="login.html" class="btn btn-warning text-dark fw-semibold btn-sm">
         <i class="bi bi-box-arrow-in-right me-1"></i> Iniciar sesión
     </a>
   </div>
-</nav>
+</nav> -->
+
 
 <!-- CHIPS -->
 <div class="bg-darker border-bottom border-dark-2">
@@ -43,7 +46,7 @@
         
     <div class="col-12 col-md-6 col-xl-4">
       <article class="product-card">
-        <img src="ComboClasica.JPG" class="product-img" alt="ComboClásica">
+        <img src="/assets/img/ComboClasica.JPG" class="product-img" alt="ComboClásica">
         <div class="product-panel">
           <h5 class="mb-1">Clásica</h5>
           <p class="text-muted small mb-2">Hamburguesa 120g, doble chedar, pepinillos, salsa Golden, tomate, lechuga, cebolla morada y pepinillos.</p>
@@ -63,7 +66,7 @@
     <!-- clasica -->
     <div class="col-12 col-md-6 col-xl-4">
       <article class="product-card">
-        <img src="Clasica.PNG" class="product-img"alt="Clasica">
+        <img src="/assets/img/Clasica.PNG" class="product-img"alt="Clasica">
         <div class="product-panel">
           <h5 class="mb-1">Clásica</h5>
           <p class="text-muted small mb-2">Hamburguesa 120g, doble chedar, pepinillos, salsa Golden, tomate, lechuga, cebolla morada y pepinillos.</p>
@@ -348,5 +351,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="app.js"></script>
+<!-- Aqui abajo está el script que permite cargar el header con la lógica iniciar sesión-->
+<script src="/assets/js/header.js" defer></script>
 </body>
 </html>

@@ -16,26 +16,8 @@
     <p>jajaj</p>
     <p>otra intento</p>
    
-<script>
-fetch('/componentes/header.html')
-  .then(res => res.text())
-  .then(html => {
-    document.getElementById('header').innerHTML = html;
-
-    // Carga Bootstrap primero
-    const bootstrapScript = document.createElement('script');
-    bootstrapScript.src = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js";
-    bootstrapScript.onload = function() {
-      // Cuando Bootstrap termina de cargar, carga header.js
-      const headerScript = document.createElement('script');
-      headerScript.src = "/assets/js/header.js";
-      document.body.appendChild(headerScript);
-    };
-    document.body.appendChild(bootstrapScript);
-  });
-</script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     
-    
+    <script src="/assets/js/header.js" defer></script>
 </body>
 </html>
