@@ -3,25 +3,102 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Main prueba</title>
-  <!-- Bootstrap CSS -->
+  <title>Golden Burger - Inicio</title>
+  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <!-- Tus estilos personalizados si tienes -->
   <link href="/assets/css/estilos.css" rel="stylesheet">
 </head>
-<body class="bg-black text-light">
-  
-    <div id="header"></div>
-    <h1>Hola Mundo</h1>
-    <p>Esta es una página de prueba.</p>
+<body class="bg-dark text-light">
 
-<footer id="site-footer" class="site-footer"></footer>
+  <header id="header"></header>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <main>
+    <section id="hero-carousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="3000">
+          <img src="/assets/img/carrusel1.png" class="d-block w-100" alt="Promoción de hamburguesa 1">
+        </div>
+        <div class="carousel-item" data-bs-interval="3000">
+          <img src="/assets/img/carrusel2.png" class="d-block w-100" alt="Promoción de hamburguesa 2">
+        </div>
+        <div class="carousel-item" data-bs-interval="3000">
+          <img src="https://placehold.co/1980x800/222222/ffc107?text=Sabor+Insuperable" class="d-block w-100" alt="Promoción de hamburguesa 3">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#hero-carousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#hero-carousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
+    </section>
+
+    <section class="container my-5 py-5">
+      <h2 class="text-center section-title mb-4">LOS MÁS VENDIDOS</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <article class="product-card">
+            <img src="/assets/img/Golden.PNG" class="product-img" alt="Hamburguesa Golden">
+            <div class="product-panel">
+              <h5 class="mb-1">Golden</h5>
+              <p class="text-muted small mb-2">Hamburguesa 120g, doble cheddar, pepinillos, tocino, salsa golden.</p>
+              <div class="d-flex justify-content-between align-items-center product-checkout">
+                <span class="price">$7.990</span>
+                <a href="/paginasCliente/Catalogo.html" class="btn btn-panel">Ver más</a>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="col-md-4">
+          <article class="product-card">
+            <img src="/assets/img/BaconCheese.PNG" class="product-img" alt="Hamburguesa Bacon BBQ">
+            <div class="product-panel">
+              <h5 class="mb-1">Bacon BBQ</h5>
+              <p class="text-muted small mb-2">Doble cheddar, doble bacon, salsa BBQ y cebolla crispy.</p>
+              <div class="d-flex justify-content-between align-items-center product-checkout">
+                <span class="price">$8.990</span>
+                <a href="/paginasCliente/Catalogo.html" class="btn btn-panel">Ver más</a>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="col-md-4">
+          <article class="product-card">
+            <img src="/assets/img/TripleQueso.PNG" class="product-img" alt="Triple Queso">
+            <div class="product-panel">
+              <h5 class="mb-1">Triple Queso</h5>
+              <p class="text-muted small mb-2">Hamburguesa 120g, triple cheddar, ketchup y pepinillos.</p>
+              <div class="d-flex justify-content-between align-items-center product-checkout">
+                <span class="price">$9.990</span>
+                <a href="/paginasCliente/Catalogo.html" class="btn btn-panel">Ver más</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
     
-    <script src="/assets/js/header.js" defer></script>
-    <script src="/assets/js/footer.js" defer></script>
+    <section class="container my-5 py-5">
+      <div class="row">
+        <div class="col text-center">
+          <h2 class="section-title">PRÓXIMAMENTE</h2>
+          </div>
+      </div>
+    </section>
+  </main>
 
-</body>
+  <footer id="site-footer" class="site-footer"></footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/js/header.js" defer></script>
+  <script src="/assets/js/footer.js" defer></script>
+  </body>
 </html>
