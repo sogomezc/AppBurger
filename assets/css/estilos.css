@@ -18,3 +18,11 @@
 .price{ color:#f6b343; font-weight:900; } .price-unit{ font-size:.8rem; color:#b7bac4; }
 .btn-panel{ background:#3a3c43; color:#fff; border:1px solid #4a4c55; padding:.4rem .9rem; border-radius:.7rem; font-weight:700; }
 .checkout-bar{ position:sticky; bottom:0; background:rgba(0,0,0,.85); backdrop-filter:blur(6px); border-top:1px solid #2a2b30; padding:.6rem 0; z-index:1030; }
+
+
+.nav-link:hover, .nav-link:focus {
+  color: #ffc107 !important; 
+  /*background-color: rgba(255,193,7,0.1); */
+  border-radius: 0.5rem;
+  transition: background 0.2s, color 0.2s;
+}

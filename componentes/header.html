@@ -1,0 +1,39 @@
+<header>
+  <nav class="navbar navbar-dark bg-dark sticky-top shadow-sm rounded-bottom-4">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#top">
+        <img src="/assets/img/Logo.JPG" height="26" alt="Golden Burger">
+        <strong>GOLDEN <span class="text-warning">BURGER</span></strong>
+      </a>
+      <!-- Enlaces de navegación -->
+      <ul class="navbar-nav flex-row gap-3 mx-auto">
+        <li class="nav-item">
+          <a class="nav-link text-light fw-bold" href="index.html"><strong>INICIO</strong></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light fw-bold" href="catalogo.html"><strong>CATÁLOGO</strong></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light fw-bold" href="nosotros.html"><strong>NOSOTROS</strong></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light fw-bold" href="contacto.html"><strong>CONTACTO</strong></a>
+        </li>
+      </ul>
+      <!-- Botón para hacer inicio de sesión -->
+      <a href="/falsoLogin.html" class="btn btn-warning text-dark fw-semibold btn-sm" id="loginBtn">
+        <i class="bi bi-box-arrow-in-right me-1"></i> Iniciar sesión
+      </a>
+      <!-- Menú de usuario (oculto por defecto) -->
+      <div id="userMenu" class="dropdown d-none">
+        <button class="btn btn-warning text-dark fw-semibold btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Hola, <span id="userName">Cliente</span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="perfil.html">Mi perfil</a></li>
+          <li><a class="dropdown-item" href="#" id="logoutBtn">Cerrar sesión</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
