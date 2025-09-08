@@ -3,107 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard con Sidebar</title>
+  <title>Dashboard</title>
+  <!-- Librerías Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      display: flex;
-    }
-
-    /* Sidebar */
-    .sidebar {
-      width: 220px;
-      height: 100vh;
-      background: #2c3e50;
-      color: white;
-      padding-top: 30px;
-      position: fixed;
-      left: 0;
-      top: 0;
-      display: flex;
-      flex-direction: column;
-    }
-    .sidebar h2 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    .sidebar ul {
-      list-style: none;
-      padding: 0;
-      flex-grow: 1;
-    }
-    .sidebar ul li {
-      padding: 15px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .sidebar ul li:hover {
-      background: #34495e;
-    }
-    .sidebar ul li a {
-      color: white;
-      text-decoration: none;
-      display: block;
-    }
-
-    .sidebar .logout {
-      padding: 20px;
-    }
-    .sidebar .logout a {
-      display: block;
-      background: #f39c12;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    /* Contenido */
-    .content {
-      margin-left: 220px;
-      padding: 20px;
-      width: calc(100% - 220px);
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 15px;
-      margin-bottom: 30px;
-    }
-    .card {
-      background: white;
-      padding: 15px;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      text-align: center;
-      font-size: 0.9rem;
-    }
-
-    .charts {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-    .chart-container {
-      background: white;
-      border-radius: 12px;
-      padding: 15px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    .chart-container canvas {
-      width: 100% !important;
-      height: auto !important;
-      max-height: 280px;
-    }
-  </style>
+  <!-- Estilos -->
+  <link rel="stylesheet" href="../assets/css/estilosAdmin.css">
 </head>
+
 <body>
   <!-- Sidebar -->
   <div class="sidebar">
@@ -161,6 +68,7 @@
     </div>
   </div>
 
+  <!-- Scripts -->
   <script>
     // Gráfico de Barras: Ventas por Mes
     new Chart(document.getElementById('ventasMes'), {
@@ -174,7 +82,7 @@
         }]
       },
       options: { 
-        responsive: true, 
+        responsive: true,
         maintainAspectRatio: false,
         plugins: {
           datalabels: {
@@ -198,7 +106,7 @@
         }]
       },
       options: { 
-        responsive: true, 
+        responsive: true,
         maintainAspectRatio: false,
         plugins: {
           datalabels: {
@@ -221,7 +129,7 @@
         }]
       },
       options: { 
-        responsive: true, 
+        responsive: true,
         maintainAspectRatio: false,
         plugins: {
           datalabels: {

@@ -4,22 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gestión de Pedidos</title>
-  <style>
-    body { margin:0; font-family:Arial,sans-serif; display:flex; background:#f4f4f4; }
-    .sidebar { width:220px; height:100vh; background:#2c3e50; color:white; padding-top:30px; position:fixed; left:0; top:0; display:flex; flex-direction:column; justify-content:space-between; }
-    .sidebar h2 { text-align:center; margin-bottom:30px; }
-    .sidebar ul { list-style:none; padding:0; }
-    .sidebar ul li { padding:15px; cursor:pointer; transition:background 0.3s; }
-    .sidebar ul li:hover { background:#34495e; }
-    .sidebar a { color:white; text-decoration:none; display:block; }
-    .content { margin-left:220px; padding:20px; width:calc(100% - 220px); }
-    table { width:100%; border-collapse:collapse; background:white; border-radius:8px; overflow:hidden; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
-    th, td { padding:12px 15px; border-bottom:1px solid #ddd; text-align:left; }
-    th { background:#2980b9; color:white; }
-    tr:hover { background:#f1f1f1; }
-    button { margin-right:5px; padding:5px 10px; border:none; border-radius:5px; cursor:pointer; }
-    .deleteBtn { background:#c0392b; color:white; }
-  </style>
+  <!-- Estilos globales -->
+  <link rel="stylesheet" href="../assets/css/estilosAdmin.css">
 </head>
 <body>
 
@@ -34,23 +20,25 @@
         <li><a href="productos.html">Productos</a></li>
       </ul>
     </div>
-    <div style="padding:20px;">
-      <a href="login.html" style="display:block;background:#f39c12;color:white;text-align:center;padding:10px;border-radius:8px;text-decoration:none;font-weight:bold;">Cerrar Sesión</a>
+    <div class="logout">
+      <a href="../login.html">Cerrar Sesión</a>
     </div>
   </div>
 
+  <!-- Contenido -->
   <div class="content">
     <h1>Gestión de Pedidos</h1>
 
     <!-- Formulario -->
-    <form id="formPedido">
+    <form id="formPedido" class="formPedidos">
       <input type="text" id="nombre" placeholder="Nombre Cliente" required>
       <select id="producto" required>
         <option value="">Seleccione Producto</option>
       </select>
-      <button type="submit">Agregar Pedido</button>
+      <button type="submit" class="btn-agregar">Agregar Pedido</button>
     </form>
 
+    <!-- Tabla de pedidos -->
     <table id="tablaPedidos">
       <thead>
         <tr>
@@ -66,6 +54,7 @@
     </table>
   </div>
 
+  <!-- Scripts -->
   <script>
     // Catálogo de productos
     const catalogo = [
@@ -153,13 +142,11 @@
           productos: [{ nombre: producto.nombre, precio: producto.precio, cantidad:1 }]
         });
       } else {
-        // Actualizar productos existentes
         const prodExistente = usuario.productos.find(p => p.nombre === producto.nombre);
         if(prodExistente) prodExistente.cantidad += 1;
         else usuario.productos.push({ nombre: producto.nombre, precio: producto.precio, cantidad:1 });
       }
 
-      // Guardar cambios en localStorage
       localStorage.setItem('pedidos', JSON.stringify(pedidos));
       localStorage.setItem('usuarios', JSON.stringify(usuarios));
 

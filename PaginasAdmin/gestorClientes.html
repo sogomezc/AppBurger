@@ -4,21 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gestión de Clientes</title>
-  <style>
-    body { margin:0; font-family:Arial,sans-serif; display:flex; background:#f4f4f4; }
-    .sidebar { width:220px; height:100vh; background:#2c3e50; color:white; padding-top:30px; position:fixed; left:0; top:0; display:flex; flex-direction:column; justify-content:space-between; }
-    .sidebar h2 { text-align:center; margin-bottom:30px; }
-    .sidebar ul { list-style:none; padding:0; }
-    .sidebar ul li { padding:15px; cursor:pointer; transition:background 0.3s; }
-    .sidebar ul li:hover { background:#34495e; }
-    .sidebar a { color:white; text-decoration:none; display:block; }
-    .content { margin-left:220px; padding:20px; width:calc(100% - 220px); }
-    table { width:100%; border-collapse:collapse; background:white; border-radius:8px; overflow:hidden; box-shadow:0 2px 6px rgba(0,0,0,0.1); margin-top:20px; }
-    th, td { padding:12px 15px; border-bottom:1px solid #ddd; text-align:left; }
-    th { background:#2980b9; color:white; }
-    tr:hover { background:#f1f1f1; }
-    .deleteBtn { background:#c0392b; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer; }
-  </style>
+  <!-- Estilos externos -->
+  <link rel="stylesheet" href="../assets/css/estilosAdmin.css">
 </head>
 <body>
 
@@ -28,16 +15,17 @@
       <h2>Golden Burger</h2>
       <ul>
         <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="gestorClientes.html">Clientes</a></li>
+        <li><a href="gestorClientes.html" class="active">Clientes</a></li>
         <li><a href="gestorPedidos.html">Pedidos</a></li>
         <li><a href="productos.html">Productos</a></li>
       </ul>
     </div>
-    <div style="padding:20px;">
-      <a href="login.html" style="display:block;background:#f39c12;color:white;text-align:center;padding:10px;border-radius:8px;text-decoration:none;font-weight:bold;">Cerrar Sesión</a>
+    <div class="logout">
+      <a href="../login.html">Cerrar Sesión</a>
     </div>
   </div>
 
+  <!-- Contenido -->
   <div class="content">
     <h1>Gestión de Clientes</h1>
 
@@ -65,22 +53,22 @@
     let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
     let pedidos = JSON.parse(localStorage.getItem('pedidos')) || [];
 
-    // Sincronizar usuarios con los pedidos actuales
+    // Sincronizar usuarios con pedidos
     function sincronizarUsuariosConPedidos() {
       pedidos.forEach(p => {
         let usuario = usuarios.find(u => u.nombreCliente === p.nombre);
-        if(!usuario){
+        if (!usuario) {
           usuarios.push({
             nombreCliente: p.nombre,
             fechaRegistro: p.fecha,
             tipoCliente: 'Cliente',
             estado: 'Activo',
-            productos: [{ nombre: p.producto, precio: p.monto, cantidad:1 }]
+            productos: [{ nombre: p.producto, precio: p.monto, cantidad: 1 }]
           });
         } else {
           const prodExistente = usuario.productos.find(pr => pr.nombre === p.producto);
-          if(prodExistente) prodExistente.cantidad += 1;
-          else usuario.productos.push({ nombre: p.producto, precio: p.monto, cantidad:1 });
+          if (prodExistente) prodExistente.cantidad += 1;
+          else usuario.productos.push({ nombre: p.producto, precio: p.monto, cantidad: 1 });
         }
       });
       localStorage.setItem('usuarios', JSON.stringify(usuarios));
@@ -91,12 +79,12 @@
       tbody.innerHTML = '';
 
       usuarios.forEach((u, i) => {
-        const total = u.productos.reduce((sum,p) => sum + (p.precio*p.cantidad), 0);
+        const total = u.productos.reduce((sum, p) => sum + (p.precio * p.cantidad), 0);
         const productosStr = u.productos.map(p => `${p.nombre} x${p.cantidad}`).join(', ');
 
         const fila = document.createElement('tr');
         fila.innerHTML = `
-          <td>${(i+1).toString().padStart(2,'0')}</td>
+          <td>${(i + 1).toString().padStart(2,'0')}</td>
           <td>${u.nombreCliente}</td>
           <td>${u.fechaRegistro}</td>
           <td>${u.tipoCliente}</td>
@@ -111,21 +99,17 @@
       localStorage.setItem('usuarios', JSON.stringify(usuarios));
     }
 
-    function eliminarCliente(index){
-      if(confirm('¿Deseas eliminar este cliente y todos sus pedidos?')){
+    function eliminarCliente(index) {
+      if (confirm('¿Deseas eliminar este cliente y todos sus pedidos?')) {
         const cliente = usuarios[index];
-        // Eliminar pedidos asociados
         pedidos = pedidos.filter(p => p.nombre !== cliente.nombreCliente);
         localStorage.setItem('pedidos', JSON.stringify(pedidos));
-
-        // Eliminar cliente
-        usuarios.splice(index,1);
+        usuarios.splice(index, 1);
         renderTablaClientes();
       }
     }
 
     renderTablaClientes();
   </script>
-
 </body>
 </html>
