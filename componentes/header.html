@@ -1,0 +1,51 @@
+<header>
+  <nav class="navbar navbar-dark bg-dark sticky-top shadow-sm rounded-bottom-4">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="/index.html">
+        <img src="/assets/img/Logo.JPG" height="26" alt="Golden Burger">
+        <strong>GOLDEN <span class="text-warning">BURGER</span></strong>
+      </a>
+      
+      <ul class="navbar-nav flex-row gap-3 mx-auto">
+        <li class="nav-item">
+          <a class="nav-link text-light fw-bold" href="/index.html"><strong>INICIO</strong></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light fw-bold" href="/paginasCliente/Catalogo.html"><strong>CATÁLOGO</strong></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light fw-bold" href="/paginasCliente/nosotros.html"><strong>NOSOTROS</strong></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light fw-bold" href="/paginasCliente/contacto.html"><strong>CONTACTO</strong></a>
+        </li>
+      </ul>
+
+      <div class="d-flex align-items-center gap-3">
+
+        <a href="/paginasCliente/carrito.html" class="text-light fs-5 position-relative">
+          <i class="bi bi-cart"></i>
+          <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">
+            0
+          </span>
+        </a>
+
+        <a href="/login.html" class="btn btn-warning text-dark fw-semibold btn-sm" id="loginBtn">
+          <i class="bi bi-box-arrow-in-right me-1"></i> Iniciar sesión
+        </a>
+        
+        <div id="userMenu" class="dropdown d-none">
+          <button class="btn btn-warning text-dark fw-semibold btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Hola, <span id="userName">Cliente</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#">Mi perfil</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#" id="logoutBtn">Cerrar sesión</a></li>
+          </ul>
+        </div>
+        
+      </div>
+    </div>
+  </nav>
+</header>

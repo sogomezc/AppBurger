@@ -425,3 +425,33 @@ input {
       text-decoration: none;
       font-weight: bold;
     }
+/* 1. Prepara el contenedor principal para posicionar la 'X' */
+.body-login .container {
+  position: relative; /* MUY IMPORTANTE */
+  /* ...tus otros estilos para .container van aquí... */
+}
+
+/* 2. Estilos para el botón de cierre 'X' */
+.close-button {
+  position: absolute; /* Posición absoluta respecto al .container */
+  top: -50px;
+  right: -35px;
+  font-size: 2rem; /* Tamaño grande para que sea fácil de clickear */
+  font-weight: bold;
+  color: #333; /* Un color oscuro que se vea bien sobre el fondo amarillo */
+  text-decoration: none; /* Quita el subrayado del enlace */
+  z-index: 101; /* Asegura que esté por encima del panel de overlay */
+  transition: color 0.2s ease;
+}
+
+.close-button:hover {
+  color: #000; /* Se oscurece al pasar el mouse */
+}
+
+/* login.css */
+
+/* NUEVA REGLA para el contenedor "ancla" */
+.login-wrapper {
+  position: relative; /* Esto lo convierte en el punto de referencia */
+}
+
