@@ -1,7 +1,19 @@
 const usuarios = [
-  { nombre: "admin", password: "1234" },
-  { nombre: "cliente", password: "abcd" }
+  {
+    nombre: "admin",
+    email: "admin@goldenburger.com", // Email para el admin
+    password: "1234"
+  },
+  {
+    nombre: "cliente",
+    email: "cliente@correo.com", // Email para el cliente
+    password: "abcd"
+  }
+  // Puedes agregar más usuarios aquí
 ];
+
+// Para poder usar la variable 'usuarios' en otros scripts
+window.usuarios = usuarios;
 
 // Para poder usarlo en otros scripts
 window.usuarios = usuarios;
