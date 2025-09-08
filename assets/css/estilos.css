@@ -7,50 +7,47 @@
   box-shadow: 0 6px 18px rgba(0,0,0,.35);
 }
 
-.product-img {
-  width: 50%;                  /* Mitad izquierda de la foto*/
-  height: 220px;
-  object-fit: cover;
-  display: block;
-}
+.price{ color:#f6b343; font-weight:900; } .price-unit{ font-size:.8rem; color:#b7bac4; }
+.btn-panel{ background:#3a3c43; color:#fff; border:1px solid #4a4c55; padding:.4rem .9rem; border-radius:.7rem; font-weight:700; }
+.checkout-bar{ position:sticky; bottom:0; background:rgba(0,0,0,.85); backdrop-filter:blur(6px); border-top:1px solid #2a2b30; padding:.6rem 0; z-index:1030; }
 
-.product-panel {
-  flex: 1;                     /* Ocupa la mitad derecha de la foto */
-  padding: 16px;
-  color: #fdfdfd;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
 
-.text-muted {
-  color: #a29999 !important;   
-}
+    /* Contenido */
+    .content {
+      margin-left: 220px;
+      padding: 20px;
+      width: calc(100% - 220px);
+    }
 
-.price {
-  font-weight: bold;
-  font-size: 1.25rem;
-  color: #ffcc00;              
-}
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+      font-size: 0.9rem;
+    }
 
-.section-title {
-  font-size: 1.75rem;
-  font-weight: bold;
-  border-bottom: 1px solid #b2b2b2; 
-  padding-bottom: 8px;
-  margin-bottom: 24px;
-}
-.row {
-  margin-top: 16px;
-}
+    .charts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .chart-container {
+      background: white;
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .chart-container canvas {
+      width: 100% !important;
+      height: auto !important;
+      max-height: 280px;
+    }
 
-.btn-primary {
-  background-color: #d8c67c;   
-  font-weight: bold;
- }
-
- .btn btn-panel agregar-carrito
-  {
-    background-color: #b2a674;   
-    font-weight: bold;
-  }
