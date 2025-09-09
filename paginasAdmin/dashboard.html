@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <!-- Librerías Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+  <!-- Estilos -->
+  <link rel="stylesheet" href="../assets/css/estilosAdmin.css">
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>Golden Burger</h2>
+    <ul>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="gestionUsuarios.html">Usuarios</a></li>
+      <li><a href="gestionPedidos.html">Pedidos</a></li>
+      <li><a href="productos.html">Productos</a></li>
+    </ul>
+
+    <div class="logout">
+      <a href="../login.html">Cerrar Sesión</a>
+    </div>
+  </div>
+
+  <!-- Contenido -->
+  <div class="content">
+    <h1>Bienvenido, Administrador</h1>
+
+    <!-- Tarjetas -->
+    <div class="cards">
+      <div class="card">
+        <h3>Ventas Totales</h3>
+        <p>$120,500</p>
+      </div>
+      <div class="card">
+        <h3>Usuarios Registrados</h3>
+        <p>1,245</p>
+      </div>
+      <div class="card">
+        <h3>Nuevos Clientes</h3>
+        <p>58</p>
+      </div>
+      <div class="card">
+        <h3>Tickets Soporte</h3>
+        <p>14</p>
+      </div>
+    </div>
+
+    <!-- Gráficos -->
+    <div class="charts">
+      <div class="chart-container">
+        <h4>Ventas por Mes</h4>
+        <canvas id="ventasMes"></canvas>
+      </div>
+      <div class="chart-container">
+        <h4>Progreso Objetivos</h4>
+        <canvas id="progreso"></canvas>
+      </div>
+      <div class="chart-container">
+        <h4>Ventas por Categoría</h4>
+        <canvas id="categorias"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // Gráfico de Barras: Ventas por Mes
+    new Chart(document.getElementById('ventasMes'), {
+      type: 'bar',
+      data: {
+        labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
+        datasets: [{
+          label: 'Ventas ($)',
+          data: [12000, 15000, 18000, 10000, 22000, 25000],
+          backgroundColor: '#f39c12'
+        }]
+      },
+      options: { 
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          datalabels: {
+            color: '#000',
+            anchor: 'end',
+            align: 'top'
+          }
+        }
+      },
+      plugins: [ChartDataLabels]
+    });
+
+    // Gráfico Circular: Progreso Objetivos
+    new Chart(document.getElementById('progreso'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Completado', 'Pendiente'],
+        datasets: [{
+          data: [75, 25],
+          backgroundColor: ['#27ae60', '#c0392b']
+        }]
+      },
+      options: { 
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          datalabels: {
+            color: '#fff',
+            formatter: (value) => value + '%'
+          }
+        }
+      },
+      plugins: [ChartDataLabels]
+    });
+
+    // Gráfico de Torta: Ventas por Categoría
+    new Chart(document.getElementById('categorias'), {
+      type: 'pie',
+      data: {
+        labels: ['Hamburguesas', 'Acompañamientos', 'Bebestibles'],
+        datasets: [{
+          data: [40, 35, 25],
+          backgroundColor: ['#2980b9', '#f1c40f', '#8e44ad']
+        }]
+      },
+      options: { 
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          datalabels: {
+            color: '#fff',
+            formatter: (value, ctx) => {
+              let total = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+              let porcentaje = ((value / total) * 100).toFixed(1) + "%";
+              return porcentaje;
+            }
+          }
+        }
+      },
+      plugins: [ChartDataLabels]
+    });
+  </script>
+</body>
+</html>
