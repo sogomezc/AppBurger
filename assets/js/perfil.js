@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = '/login.html';
         return; 
     }
-
     // --- CAPTURA DE ELEMENTOS DEL FORMULARIO ---
     const profileForm = document.getElementById('profileForm');
     const nombreInput = document.getElementById('profile-nombre');

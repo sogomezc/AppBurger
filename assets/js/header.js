@@ -1,4 +1,3 @@
-// /assets/js/header.js
 
 // --- DEFINICIÓN DE FUNCIONES PRINCIPALES ---
 
@@ -99,12 +98,12 @@ function cargarHeader() {
         });
 }
 
-// --- EJECUCIÓN INICIAL DEL SCRIPT ---
+
 // Añade un listener al evento 'DOMContentLoaded', que se dispara cuando el HTML base de la página está listo.
 // Cuando esto ocurre, se llama a la función 'cargarHeader' para iniciar todo el proceso.
 document.addEventListener('DOMContentLoaded', cargarHeader);
 
-// --- FUNCIÓN GLOBAL ---
+
 /**
  * Se define 'actualizarContadorCarrito' de nuevo y se asigna al objeto 'window'.
  * Esto la convierte en una función global, permitiendo que otros scripts

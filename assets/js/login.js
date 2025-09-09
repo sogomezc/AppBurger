@@ -1,4 +1,4 @@
-// /assets/js/login.js
+
 
 /* --- CAPTURA DE ELEMENTOS DEL DOM --- */
 
@@ -15,7 +15,6 @@ const container = document.getElementById("container");
 const emailInput = document.getElementById("email-login");
 
 
-/* --- EVENT LISTENERS PARA LA ANIMACIÓN --- */
 
 /**
  * Añade un detector de eventos al botón de registro.

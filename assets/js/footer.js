@@ -1,4 +1,4 @@
-// /assets/js/footer.js
+
 
 // Escucha el evento 'DOMContentLoaded', que se dispara cuando el HTML inicial de la página está listo.
 // Esto asegura que nuestro script no intente buscar un elemento que todavía no existe.
@@ -14,11 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // 3. Usamos la API 'fetch' para solicitar el contenido del archivo footer.html.
+    // 3. Usamos  'fetch' para solicitar el contenido del archivo footer.html.
     // La ruta '/componentes/footer.html' es relativa a la raíz de tu sitio web.
     fetch('/componentes/footer.html')
         .then(response => {
-            // 4. Verificamos si la solicitud fue exitosa (código de estado 200-299).
+            // 4. Verificamos si la solicitud fue exitosa.
             if (!response.ok) {
                 // Si hay un error (ej: archivo no encontrado 404), lanzamos un error para pasar al bloque .catch().
                 throw new Error("No se pudo cargar el footer. Revisa la ruta.");

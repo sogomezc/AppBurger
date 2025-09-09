@@ -1,5 +1,6 @@
-// /assets/js/carrito.js
-//este archivo se ocupa de manejar la lógica de la página index.html (listado de productos)
+
+//este archivo se ocupa de manejar la lógica del carrito que está en el header y la logica en la pagina catalogo
+
 // Escucha el evento 'DOMContentLoaded', que se dispara cuando el HTML inicial ha sido completamente cargado y analizado.
 // Esto asegura que nuestro script no intente buscar elementos que todavía no existen en la página.
 document.addEventListener('DOMContentLoaded', () => {
@@ -39,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Leemos el carrito desde sessionStorage. Si no existe, creamos un array vacío [].
         const carrito = JSON.parse(sessionStorage.getItem('carrito')) || [];
         
-        // Usamos el método 'reduce' para sumar los precios de todos los productos en el carrito.
+        // Usamos el método 'sum' para sumar los precios de todos los productos en el carrito.
         const total = carrito.reduce((sum, producto) => sum + producto.precio, 0);
 
         // Comprobamos si hay algo en el carrito.
@@ -66,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Recorremos cada producto de nuestra base de datos.
         window.productosDB.forEach(producto => {
-            // Creamos el bloque HTML para la tarjeta de un producto usando plantillas de texto (template literals).
+            // Creamos el bloque HTML para la tarjeta de un producto usando plantillas de texto 
             // Esto nos permite insertar variables como ${producto.nombre} directamente en el HTML.
             const productoHTML = `
                 <div class="col-12 col-md-6 col-xl-4">
@@ -129,7 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- EJECUCIÓN INICIAL DEL SCRIPT ---
     
     // 1. Dibuja todos los productos en la página tan pronto como se carga.
     renderizarProductos(); 
