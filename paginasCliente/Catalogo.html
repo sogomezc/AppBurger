@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Golden Burger - Catálogo</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/estilos.css">
+</head>
+
+<!-- Modal Producto-->
+<div class="modal fade" id="productoModal" tabindex="-1" aria-hidden="true"> 
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content bg-dark text-light border-0 rounded-4">
+      <div class="modal-body p-0">
+        <div class="row g-0">
+          <div class="col-12 col-xl-6 p-4 d-flex align-items-center justify-content-center">
+            <img class="img-fluid rounded-3 js-modal-img" alt="Producto seleccionado" />
+          </div>
+          <div class="col-12 col-xl-6 p-4">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <h3 class="m-0 js-modal-title"></h3>
+              <span class="fs-5 fw-semibold js-modal-price"></span>
+            </div>
+            <p class="text-muted js-modal-desc"></p>
+            <hr class="border-secondary opacity-25">
+            <div class="mb-3">
+              <label class="form-label">Tamaño</label>
+              <div class="d-flex gap-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="sizeBurger" id="optSimple" checked>
+                  <label class="form-check-label" for="optSimple">Simple</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="sizeBurger" id="optDoble">
+                  <label class="form-check-label" for="optDoble">Doble</label>
+                </div>
+              </div>
+            </div>
+            <div class="d-grid">
+              <button class="btn btn-danger btn-lg fw-semibold js-modal-add">Agregar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-link position-absolute top-0 end-0 m-3 text-white text-decoration-none" data-bs-dismiss="modal" aria-label="Close">
+        <i class="bi bi-x-lg fs-4"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<body class="bg-black text-light">
+
+<header id="header"></header>
+
+<div class="bg-darker border-bottom border-dark-2">
+  <div class="container py-3 d-flex flex-wrap gap-2" id="chips">
+    <a class="btn btn-chip" href="#combos">Combos</a>
+    <a class="btn btn-chip" href="#burgers">Burgers</a>
+    <a class="btn btn-chip" href="#sides">Acompañamientos</a>
+    <a class="btn btn-chip" href="#kids">Kids</a>
+    <a class="btn btn-chip" href="#drinks">Refrescos</a>
+  </div>
+</div>
+
+<main class="container my-4">
+  <h2 id="combos" class="section-title">Combos</h2>
+  <div class="row g-4" id="combos-container"></div> 
+        
+  <h2 id="burgers" class="section-title mt-5">Burgers</h2>
+  <div class="row g-4" id="burgers-container"></div>
+
+  <h2 id="sides" class="section-title mt-5">Acompañamientos</h2>
+  <div class="row g-4" id="sides-container"></div>
+
+  <h2 id="kids" class="section-title mt-5">Kids</h2>
+  <div class="row g-4" id="kids-container"></div>
+  
+  <h2 id="drinks" class="section-title mt-5">Refrescos</h2>
+  <div class="row g-4" id="drinks-container"></div>
+
+
+
+</main>
+    <div id="checkout-bar" class="checkout-bar d-none">
+        <div class="container d-flex justify-content-between align-items-center">
+        <span>Total: <strong id="total">$0</strong></span>
+        <a href="/paginasCliente/carrito.html" class="btn btn-warning text-dark fw-semibold">Ir a pagar</a>
+        </div>
+    </div>
+<br><br>
+
+
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/js/dataBase.js"></script>
+<script src="/assets/js/header.js" defer></script>
+<script src="/assets/js/footer.js" defer></script>
+<script src="/assets/js/carrito.js"></script>
+<script src="/assets/js/producto-modal.js"></script></body>
+</html>
