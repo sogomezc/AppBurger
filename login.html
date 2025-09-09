@@ -73,89 +73,112 @@
         </div>
       </div>
 
-    </div> </div> <script src="/assets/js/login.js"></script>
+    </div> 
+  </div>
+
+  <script src="/assets/js/login.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/assets/js/dataBase.js"></script>
   
-  <!-- Esto es el script para iniciar sesión-->
   <script>
+    // Espera a que todo el HTML de la página esté cargado antes de ejecutar el script.
     document.addEventListener('DOMContentLoaded', function() {
       
-      // Lógica para el formulario de login
+      // --- LÓGICA PARA EL FORMULARIO DE LOGIN ---
       const loginForm = document.getElementById('loginForm');
       if (loginForm) {
+        
         loginForm.addEventListener('submit', function(e) {
+          // Previene que la página se recargue, que es el comportamiento por defecto de un formulario.
           e.preventDefault();
           
+          // Obtiene los valores escritos por el usuario en los campos de email y contraseña.
           const email = document.getElementById('email').value;
           const password = document.getElementById('password').value;
 
+          // Busca en la lista de usuarios si alguno coincide con el email y contraseña ingresados.
           const usuarioValido = window.usuarios.find(u => u.email === email && u.password === password);
 
+          // Si se encontró un usuario válido...
           if (usuarioValido) {
+            // Guarda en el navegador que el usuario ha iniciado sesión y su nombre.
             localStorage.setItem('isLoggedIn', 'true');
             localStorage.setItem('userName', usuarioValido.nombre);
             
-            const redirectUrl = localStorage.getItem('redirectAfterLogin') || '/index.html';
-            localStorage.removeItem('redirectAfterLogin'); 
-            window.location.href = redirectUrl;
+            // Lógica de redirección segñun si es admin o cliente
+            if (usuarioValido.email === 'admin@profesor.duocuc.cl') {
+              // Si es el admin, lo envía directamente a su panel de control.
+              window.location.href = '/paginasAdmin/dashboard.html';
+            } else {
+              // Si es un cliente, lo envía a la página de inicio o a la que intentaba visitar antes.
+              const redirectUrl = localStorage.getItem('redirectAfterLogin') || '/index.html';
+              localStorage.removeItem('redirectAfterLogin'); 
+              window.location.href = redirectUrl;
+            }
+
           } else {
+            // Si no se encontró un usuario, muestra un mensaje de error.
             alert("Email o contraseña incorrectos");
           }
         });
       }
 
-     // --- LÓGICA DE REGISTRO (CON VALIDACIÓN DE EMAIL) ---
-const registerForm = document.getElementById('registerForm');
-if (registerForm) {
-  registerForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const nombre = document.getElementById('register-nombre').value;
-    const email = document.getElementById('register-email').value.trim(); // .trim() para limpiar espacios
-    const password = document.getElementById('register-password').value;
+      // --- LÓGICA DE REGISTRO ---
+      const registerForm = document.getElementById('registerForm');
+      if (registerForm) {
+        // Se activa cuando el usuario intenta enviar el formulario de registro.
+        registerForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          // Obtiene los valores de los campos de registro.
+          const nombre = document.getElementById('register-nombre').value;
+          const email = document.getElementById('register-email').value.trim(); // .trim() elimina espacios
+          const password = document.getElementById('register-password').value;
 
-    // Validación de campos vacíos
-    if (!nombre || !email || !password) {
-      alert('Por favor, completa todos los campos.');
-      return;
-    }
+          // Validación 1: Campos vacíos
+          if (!nombre || !email || !password) {
+            alert('Por favor, completa todos los campos.');
+            return; // Detiene el proceso
+          }
 
-    // --- Validaciones segun instrucciones  ---
-    const emailValido = 
-        email.endsWith('@duocuc.cl') || 
-        email.endsWith('@profesor.duocuc.cl') || 
-        email.endsWith('@gmail.com');
+          // Validación 2: Dominio del correo
+          const emailValido = 
+              email.endsWith('@duocuc.cl') || 
+              email.endsWith('@profesor.duocuc.cl') || 
+              email.endsWith('@gmail.com');
 
-    if (!emailValido) {
-      alert('El correo debe tener un dominio válido: @duocuc.cl, @profesor.duocuc.cl o @gmail.com');
-      return; // Detiene el proceso si el email no es válido
-    }
-  
-    // Validación de email existente
-    const emailExistente = window.usuarios.some(u => u.email === email);
-    if (emailExistente) {
-      alert('Este email ya está registrado.');
-      return;
-    }
+          if (!emailValido) {
+            alert('El correo debe tener un dominio válido: @duocuc.cl, @profesor.duocuc.cl o @gmail.com');
+            return; // Detiene el proceso
+          }
+        
+          // Validación 3: El email no debe existir previamente
+          const emailExistente = window.usuarios.some(u => u.email === email);
+          if (emailExistente) {
+            alert('Este email ya está registrado.');
+            return; // Detiene el proceso
+          }
 
-    // Si todas las validaciones pasan, se crea el usuario
-    const newUser = { nombre, email, password };
-    window.usuarios.push(newUser);
+          // Si todas las validaciones pasan, crea el nuevo objeto de usuario.
+          const newUser = { nombre, email, password };
+          // Lo añade a la lista de usuarios en memoria.
+          window.usuarios.push(newUser);
+          // Guarda la lista de usuarios actualizada y permanente en el navegador.
+          localStorage.setItem('usuarios', JSON.stringify(window.usuarios));
 
-    localStorage.setItem('usuarios', JSON.stringify(window.usuarios));
+          // Informa al usuario y limpia el formulario.
+          alert('¡Registro exitoso! Ahora puedes iniciar sesión.');
+          registerForm.reset();
+          // Simula un clic en el botón "Iniciar Sesión" para cambiar de panel.
+          document.getElementById('login').click();
+        });
+      }
 
-    alert('¡Registro exitoso! Ahora puedes iniciar sesión.');
-    registerForm.reset();
-    document.getElementById('login').click();
-  });
-}
-
-      // Lógica para el botón de cierre "X" (solo se necesita una vez)
+      // --- LÓGICA DEL BOTÓN DE CIERRE "X" ---
       const closeButton = document.getElementById('close-login');
       if (closeButton) {
         closeButton.addEventListener('click', function(event) {
-          event.preventDefault(); 
-          history.back();       
+          event.preventDefault(); // Evita que el enlace '#' mueva la página.
+          history.back();       // Envía al usuario a la página anterior en su historial.
         });
       }
     });
