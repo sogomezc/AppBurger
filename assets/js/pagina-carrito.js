@@ -1,4 +1,4 @@
-// /assets/js/pagina-carrito.js
+
 
 // este archivo se ocupa de manejar la lógica de la página carrito.html
 

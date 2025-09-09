@@ -6,12 +6,12 @@ const usuariosGuardados = localStorage.getItem('usuarios');
 let usuariosIniciales = [
   {
     nombre: "admin",
-    email: "admin@goldenburger.com",
+    email: "admin@profesor.duocuc.cl",
     password: "1234"
   },
   {
     nombre: "cliente",
-    email: "cliente@correo.com",
+    email: "cliente@duocuc.cl",
     password: "abcd"
   }
 ];

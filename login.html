@@ -105,37 +105,50 @@
         });
       }
 
-      // --- LÓGICA DE REGISTRO (CON CAMBIO IMPORTANTE) ---
-    const registerForm = document.getElementById('registerForm');
-    if (registerForm) {
-      registerForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const nombre = document.getElementById('register-nombre').value;
-        const email = document.getElementById('register-email').value;
-        const password = document.getElementById('register-password').value;
+     // --- LÓGICA DE REGISTRO (CON VALIDACIÓN DE EMAIL) ---
+const registerForm = document.getElementById('registerForm');
+if (registerForm) {
+  registerForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const nombre = document.getElementById('register-nombre').value;
+    const email = document.getElementById('register-email').value.trim(); // .trim() para limpiar espacios
+    const password = document.getElementById('register-password').value;
 
-        if (!nombre || !email || !password) {
-          alert('Por favor, completa todos los campos.');
-          return;
-        }
-
-        const emailExistente = window.usuarios.some(u => u.email === email);
-        if (emailExistente) {
-          alert('Este email ya está registrado.');
-          return;
-        }
-
-        const newUser = { nombre, email, password };
-        window.usuarios.push(newUser);
-
-        // ¡CAMBIO CLAVE! Guarda la lista actualizada en localStorage
-        localStorage.setItem('usuarios', JSON.stringify(window.usuarios));
-
-        alert('¡Registro exitoso! Ahora puedes iniciar sesión.');
-        registerForm.reset();
-        document.getElementById('login').click();
-      });
+    // Validación de campos vacíos
+    if (!nombre || !email || !password) {
+      alert('Por favor, completa todos los campos.');
+      return;
     }
+
+    // --- Validaciones segun instrucciones  ---
+    const emailValido = 
+        email.endsWith('@duocuc.cl') || 
+        email.endsWith('@profesor.duocuc.cl') || 
+        email.endsWith('@gmail.com');
+
+    if (!emailValido) {
+      alert('El correo debe tener un dominio válido: @duocuc.cl, @profesor.duocuc.cl o @gmail.com');
+      return; // Detiene el proceso si el email no es válido
+    }
+  
+    // Validación de email existente
+    const emailExistente = window.usuarios.some(u => u.email === email);
+    if (emailExistente) {
+      alert('Este email ya está registrado.');
+      return;
+    }
+
+    // Si todas las validaciones pasan, se crea el usuario
+    const newUser = { nombre, email, password };
+    window.usuarios.push(newUser);
+
+    localStorage.setItem('usuarios', JSON.stringify(window.usuarios));
+
+    alert('¡Registro exitoso! Ahora puedes iniciar sesión.');
+    registerForm.reset();
+    document.getElementById('login').click();
+  });
+}
 
       // Lógica para el botón de cierre "X" (solo se necesita una vez)
       const closeButton = document.getElementById('close-login');
@@ -147,8 +160,6 @@
       }
     });
   </script>
-
-
 
 </body>
 </html>
