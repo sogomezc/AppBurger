@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Usuarios</title>
+  <!-- Estilos externos -->
+  <link rel="stylesheet" href="../assets/css/estilosAdmin.css">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div>
+      <h2>Golden Burger</h2>
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="gestionUsuarios.html" class="active">Usuarios</a></li>
+        <li><a href="gestionPedidos.html">Pedidos</a></li>
+        <li><a href="productos.html">Productos</a></li>
+      </ul>
+    </div>
+    <div class="logout">
+      <a href="../login.html">Cerrar Sesión</a>
+    </div>
+  </div>
+
+  <!-- Contenido -->
+  <div class="content">
+    <h1>Gestión de Usuarios</h1>
+
+    <!-- Botón para agregar nuevo usuario -->
+    <a href="nuevoUsuario.html" class="btn-agregar" style="margin-bottom: 20px; display: inline-block;">
+      Agregar nuevo usuario
+    </a>
+
+    <table id="tablaUsuarios">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>RUN</th>
+          <th>Nombre</th>
+          <th>Apellidos</th>
+          <th>Correo</th>
+          <th>Tipo de Usuario</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    const tbody = document.querySelector('#tablaUsuarios tbody');
+
+    // Traemos usuarios de localStorage
+    let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+
+    // Renderiza la tabla de usuarios
+    function renderTablaUsuarios() {
+      tbody.innerHTML = '';
+
+      usuarios.forEach((u, i) => {
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+          <td>${(i + 1).toString().padStart(2,'0')}</td>
+          <td>${u.run || ''}</td>
+          <td>${u.nombre || ''}</td>
+          <td>${u.apellidos || ''}</td>
+          <td>${u.correo || ''}</td>
+          <td>${u.tipoUsuario || ''}</td>
+          <td>
+            <button class="deleteBtn" onclick="eliminarUsuario(${i})">Eliminar</button>
+            <button class="editBtn" onclick="editarUsuario(${i})">Editar</button>
+          </td>
+        `;
+        tbody.appendChild(fila);
+      });
+
+      localStorage.setItem('usuarios', JSON.stringify(usuarios));
+    }
+
+    function eliminarUsuario(index) {
+      if (confirm('¿Deseas eliminar este usuario?')) {
+        usuarios.splice(index, 1);
+        renderTablaUsuarios();
+      }
+    }
+
+    function editarUsuario(index) {
+      // Redirige a nuevoUsuario.html con el índice del usuario como parámetro
+      window.location.href = `nuevoUsuario.html?edit=${index}`;
+    }
+
+    renderTablaUsuarios();
+  </script>
+</body>
+</html>

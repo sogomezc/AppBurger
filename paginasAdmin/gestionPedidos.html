@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Pedidos</title>
+  <!-- Estilos globales -->
+  <link rel="stylesheet" href="../assets/css/estilosAdmin.css">
+</head>
+<body>
+
+  <!-- Sidebar de navegación -->
+  <div class="sidebar">
+    <div>
+      <h2>Golden Burger</h2>
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="gestionUsuarios.html">Usuarios</a></li>
+        <li><a href="gestionPedidos.html">Pedidos</a></li>
+        <li><a href="productos.html">Productos</a></li>
+      </ul>
+    </div>
+    <div class="logout">
+      <a href="../login.html">Cerrar Sesión</a>
+    </div>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="content">
+    <h1>Gestión de Pedidos</h1>
+
+    <!-- Formulario para agregar pedidos -->
+    <form id="formPedido" class="formPedidos">
+      <input type="text" id="nombre" placeholder="Nombre Cliente" required>
+      <select id="producto" required>
+        <option value="">Seleccione Producto</option>
+      </select>
+      <button type="submit" class="btn-agregar">Agregar Pedido</button>
+    </form>
+
+    <!-- Tabla para mostrar los pedidos -->
+    <table id="tablaPedidos">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Fecha</th>
+          <th>Nombre Cliente</th>
+          <th>Producto</th>
+          <th>Monto</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // Catálogo de productos disponibles
+    const catalogo = [
+      { nombre: "Combo Clásica", precio: 7990 },
+      { nombre: "Clásica", precio: 6990 },
+      { nombre: "Champiñon", precio: 8790 },
+      { nombre: "Triple Queso", precio: 9990 },
+      { nombre: "Golden", precio: 7990 },
+      { nombre: "Bacon BBQ", precio: 8990 },
+      { nombre: "Italiana", precio: 6290 },
+      { nombre: "Spicy Clásica", precio: 7790 },
+      { nombre: "Bacon Cheeseburger Clásica", precio: 6990 },
+      { nombre: "Cheeseburger", precio: 7890 },
+      { nombre: "Papas Golden", precio: 6990 },
+      { nombre: "Chicken Pop", precio: 6990 },
+      { nombre: "Coca-cola", precio: 1490 },
+      { nombre: "Coca-cola Zero", precio: 1490 },
+      { nombre: "Fanta", precio: 1490 },
+      { nombre: "Sprite", precio: 1490 },
+      { nombre: "Jumex", precio: 1490 },
+      { nombre: "Avocado Kids", precio: 3890 },
+      { nombre: "Play Queso", precio: 3890 }
+    ];
+
+    // Llena el select de productos en el formulario
+    const selectProducto = document.getElementById('producto');
+    catalogo.forEach(p => {
+      const option = document.createElement('option');
+      option.value = p.nombre;
+      option.textContent = `${p.nombre} - $${p.precio}`;
+      selectProducto.appendChild(option);
+    });
+
+    const form = document.getElementById('formPedido');
+    const tbody = document.querySelector('#tablaPedidos tbody');
+
+    // Obtiene los pedidos y usuarios almacenados en localStorage
+    let pedidos = JSON.parse(localStorage.getItem('pedidos')) || [];
+    let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+
+    // Renderiza la tabla de pedidos
+    function renderTabla() {
+      tbody.innerHTML = '';
+      pedidos.forEach((p, i) => {
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+          <td>${i+1}</td>
+          <td>${p.fecha}</td>
+          <td>${p.nombre}</td>
+          <td>${p.producto}</td>
+          <td>$${p.monto}</td>
+          <td>
+            <button class="deleteBtn" onclick="eliminarPedido(${i})">Eliminar</button>
+          </td>
+        `;
+        tbody.appendChild(fila);
+      });
+
+      // Guarda los datos actualizados en localStorage
+      localStorage.setItem('pedidos', JSON.stringify(pedidos));
+      localStorage.setItem('usuarios', JSON.stringify(usuarios));
+    }
+
+    // Evento para agregar un nuevo pedido
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const nombre = document.getElementById('nombre').value.trim();
+      const productoNombre = selectProducto.value;
+      if(!productoNombre) return alert('Seleccione un producto');
+
+      const producto = catalogo.find(p => p.nombre === productoNombre);
+      const fecha = new Date().toLocaleDateString();
+      const monto = producto.precio;
+
+      // Crea el nuevo pedido y lo agrega al arreglo
+      const nuevoPedido = { fecha, nombre, producto: producto.nombre, monto };
+      pedidos.push(nuevoPedido);
+
+      // Crea o actualiza el cliente automáticamente
+      let usuario = usuarios.find(u => u.nombreCliente === nombre);
+      if(!usuario){
+        // Si el cliente no existe, lo agrega
+        usuarios.push({
+          nombreCliente: nombre,
+          fechaRegistro: fecha,
+          tipoCliente: 'Cliente',
+          estado: 'Activo',
+          productos: [{ nombre: producto.nombre, precio: producto.precio, cantidad:1 }]
+        });
+      } else {
+        // Si existe, actualiza la cantidad del producto o lo agrega
+        const prodExistente = usuario.productos.find(p => p.nombre === producto.nombre);
+        if(prodExistente) prodExistente.cantidad += 1;
+        else usuario.productos.push({ nombre: producto.nombre, precio: producto.precio, cantidad:1 });
+      }
+
+      // Guarda los datos actualizados en localStorage
+      localStorage.setItem('pedidos', JSON.stringify(pedidos));
+      localStorage.setItem('usuarios', JSON.stringify(usuarios));
+
+      form.reset(); // Limpia el formulario
+      renderTabla(); // Actualiza la tabla
+    });
+
+    // Elimina un pedido y actualiza el usuario correspondiente
+    function eliminarPedido(index) {
+      if(confirm('¿Deseas eliminar este pedido?')){
+        const pedidoEliminado = pedidos.splice(index,1)[0];
+        const usuario = usuarios.find(u => u.nombreCliente === pedidoEliminado.nombre);
+        if(usuario){
+          // Elimina el producto del usuario
+          const prodIndex = usuario.productos.findIndex(p => p.nombre === pedidoEliminado.producto);
+          if(prodIndex > -1) usuario.productos.splice(prodIndex,1);
+          // Si el usuario no tiene productos, lo elimina
+          if(usuario.productos.length === 0) usuarios = usuarios.filter(u => u.nombreCliente !== usuario.nombreCliente);
+        }
+        renderTabla(); // Actualiza la tabla
+      }
+    }
+
+    // Inicializa la tabla al cargar la página
+    renderTabla();
+  </script>
+</body>
+</html>

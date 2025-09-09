@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro Nuevo Usuario</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/estilosAdmin.css">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div>
+      <h2>Golden Burger</h2>
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="gestionUsuarios.html">Usuarios</a></li>
+        <li><a href="gestionPedidos.html">Pedidos</a></li>
+        <li><a href="productos.html">Productos</a></li>
+      </ul>
+    </div>
+    <a href="login.html" class="logout">Cerrar Sesión</a>
+  </div>
+
+  <!-- Contenido -->
+  <div class="content">
+    <h1 class="mb-4">📝 Registro Nuevo Usuario</h1>
+    
+    <form id="registroForm" class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label for="run" class="form-label">RUN*</label>
+        <input type="text" class="form-control" id="run" maxlength="9" required>
+        <div class="invalid-feedback">Ingrese un RUN válido (sin puntos ni guion, 7-9 caracteres).</div>
+      </div>
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre*</label>
+        <input type="text" class="form-control" id="nombre" maxlength="50" required>
+        <div class="invalid-feedback">Ingrese nombre (máx 50 caracteres).</div>
+      </div>
+      <div class="mb-3">
+        <label for="apellidos" class="form-label">Apellidos*</label>
+        <input type="text" class="form-control" id="apellidos" maxlength="100" required>
+        <div class="invalid-feedback">Ingrese apellidos (máx 100 caracteres).</div>
+      </div>
+      <div class="mb-3">
+        <label for="correo" class="form-label">Correo*</label>
+        <input type="email" class="form-control" id="correo" maxlength="100" required>
+        <div class="invalid-feedback">Correo inválido. Solo se permiten @duoc.cl, @profesor.duoc.cl, @gmail.com</div>
+      </div>
+      <div class="mb-3">
+        <label for="correo2" class="form-label">Repetir Correo*</label>
+        <input type="email" class="form-control" id="correo2" maxlength="100" required>
+        <div class="invalid-feedback">Los correos deben coincidir.</div>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña*</label>
+        <input type="password" class="form-control" id="password" required>
+        <div class="invalid-feedback">Ingrese la contraseña.</div>
+      </div>
+      <div class="mb-3">
+        <label for="password2" class="form-label">Confirmar Contraseña*</label>
+        <input type="password" class="form-control" id="password2" required>
+        <div class="invalid-feedback">Las contraseñas deben coincidir.</div>
+      </div>
+      <div class="mb-3">
+        <label for="telefono" class="form-label">Teléfono (Opcional)</label>
+        <input type="text" class="form-control" id="telefono">
+      </div>
+      <div class="mb-3">
+        <label for="region" class="form-label">Seleccione Región*</label>
+        <select class="form-select" id="region" required>
+          <option value="">--Seleccione--</option>
+          <option value="V Región">V Región</option>
+          <option value="Región Metropolitana">Región Metropolitana</option>
+        </select>
+        <div class="invalid-feedback">Seleccione una región.</div>
+      </div>
+      <div class="mb-3">
+        <label for="comuna" class="form-label">Seleccione Comuna*</label>
+        <select class="form-select" id="comuna" required>
+          <option value="">--Seleccione Región Primero--</option>
+        </select>
+        <div class="invalid-feedback">Seleccione una comuna.</div>
+      </div>
+      <div class="mb-3">
+        <label for="tipoUsuario" class="form-label">Tipo de Usuario*</label>
+        <select class="form-select" id="tipoUsuario" required>
+          <option value="">--Seleccione--</option>
+          <option value="Administrador">Administrador</option>
+          <option value="Cliente">Cliente</option>
+          <option value="Vendedor">Vendedor</option>
+        </select>
+        <div class="invalid-feedback">Seleccione un tipo de usuario.</div>
+      </div>
+      <button type="submit" class="btn btn-success">Registrar</button>
+    </form>
+  </div>
+
+  <script>
+  // Comunas por región
+  const comunas = {
+    "V Región": ["Valparaíso","Viña del Mar","Quillota"],
+    "Región Metropolitana": ["Santiago","Puente Alto","Maipú"]
+  };
+
+  const regionSelect = document.getElementById("region");
+  const comunaSelect = document.getElementById("comuna");
+
+  regionSelect.addEventListener("change", () => {
+    const region = regionSelect.value;
+    comunaSelect.innerHTML = "<option value=''>--Seleccione Comuna--</option>";
+    if(region && comunas[region]){
+      comunas[region].forEach(c => {
+        const opt = document.createElement("option");
+        opt.value = c; opt.textContent = c;
+        comunaSelect.appendChild(opt);
+      });
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById('registroForm');
+    let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+    const params = new URLSearchParams(window.location.search);
+    const editIndex = params.has('edit') ? parseInt(params.get('edit')) : null;
+
+    // Si estamos editando, carga los datos en el formulario
+    if(editIndex !== null && usuarios[editIndex]) {
+      document.getElementById("run").value = usuarios[editIndex].run || "";
+      document.getElementById("nombre").value = usuarios[editIndex].nombre || "";
+      document.getElementById("apellidos").value = usuarios[editIndex].apellidos || "";
+      document.getElementById("correo").value = usuarios[editIndex].correo || "";
+      document.getElementById("correo2").value = usuarios[editIndex].correo || "";
+      if(document.getElementById("tipoUsuario")) document.getElementById("tipoUsuario").value = usuarios[editIndex].tipoUsuario || "";
+    }
+
+    form.addEventListener('submit', function(event){
+      event.preventDefault();
+      event.stopPropagation();
+
+      if(!form.checkValidity()){
+        form.classList.add('was-validated');
+        return;
+      }
+
+      const run = document.getElementById("run").value.trim();
+      if(run.length < 7 || run.length > 9 || !/^\d+[0-9Kk]$/.test(run)){
+        alert("RUN inválido.");
+        return;
+      }
+
+      const correo = document.getElementById("correo").value.trim();
+      const correo2 = document.getElementById("correo2").value.trim();
+      const dominiosPermitidos = ["@duoc.cl","@profesor.duoc.cl","@gmail.com"];
+      if(correo !== correo2){
+        alert("Los correos no coinciden."); return;
+      }
+      if(!dominiosPermitidos.some(d => correo.endsWith(d))){
+        alert("El correo no tiene un dominio permitido."); return;
+      }
+
+      const password = document.getElementById("password").value;
+      const password2 = document.getElementById("password2").value;
+      if(password !== password2){ alert("Las contraseñas deben coincidir."); return; }
+
+      const tipoUsuario = document.getElementById("tipoUsuario").value;
+      if(!tipoUsuario){ alert("Seleccione un tipo de usuario."); return; }
+
+      // Solo los campos que muestra la tabla
+      const nuevoUsuario = {
+        run: document.getElementById("run").value.trim(),
+        nombre: document.getElementById("nombre").value.trim(),
+        apellidos: document.getElementById("apellidos").value.trim(),
+        correo: document.getElementById("correo").value.trim(),
+        tipoUsuario: document.getElementById("tipoUsuario").value
+      };
+
+      if(editIndex !== null && usuarios[editIndex]) {
+        usuarios[editIndex] = nuevoUsuario;
+      } else {
+        usuarios.push(nuevoUsuario);
+      }
+
+      localStorage.setItem('usuarios', JSON.stringify(usuarios));
+      alert("Usuario guardado correctamente!");
+      window.location.href = "gestionUsuarios.html";
+    }, false);
+  });
+</script>
+
+</body>
+</html>
