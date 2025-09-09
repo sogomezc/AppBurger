@@ -86,7 +86,7 @@
   color: #fff !important;
   }
 
-/* Mensajes de ayuda (contadores, hints) en blanco */
+/* Mensajes de en blanco */
 .form-text {
   color: #fff !important;
   }
@@ -129,7 +129,6 @@
   border-color: #000; /* Borde del mismo color que el fondo */
 }
 
-/* /assets/css/estilos.css */
 
 /* Cambia el color del texto en el resumen del carrito a blanco */
 #cart-summary {
