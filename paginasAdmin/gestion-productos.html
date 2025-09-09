@@ -21,7 +21,7 @@
     </ul>
     </div>
     <div class="logout">
-      <a href="../login.html">Cerrar Sesión</a>
+      <a href="/index.html">Cerrar Admin</a>
     </div>
   </div>
 
@@ -32,8 +32,8 @@
     <!-- Formulario -->
     <div class="form-container">
       <form class="form-producto" id="formProducto">
-          <label for="id_producto">ID</label>
-          <input type="text" id="id_producto" placeholder="ID" required>
+          <!--<label for="id_producto">ID</label>
+          <input type="text" id="id_producto" placeholder="ID" required>-->
 
           <label for="nombre_producto">Nombre</label>
           <input type="text" id="nombre_producto" placeholder="Nombre" required>
@@ -61,7 +61,7 @@
     <table class="tabla-producto" id="tablaProductos">
       <thead>
         <tr>
-          <th>Id</th>
+          <!--<th>Id</th>-->
           <th>Nombre</th>
           <th>Categoria</th>
           <th>Precio</th>
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
         evento.preventDefault();
 
         
-        const id = document.getElementById('id_producto').value;
+        //const id = document.getElementById('id_producto').value;
         const nombre = document.getElementById('nombre_producto').value;
         const categoria = document.getElementById('categoria_producto').value;
         const precio = document.getElementById('precio_producto').value;
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
         nuevaFila.classList.add('fila-producto');
         nuevaFila.innerHTML = `
         
-            <td>${id}</td>
+            
             <td>${nombre}</td>
             <td>${categoria}</td>
             <td>${precio}</td>
