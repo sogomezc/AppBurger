@@ -1,188 +1,149 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Golden Burger - Login</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="/assets/css/estilos.css">
-    <link rel="stylesheet" href="/assets/css/login.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <!-- Librerías Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+  <!-- Estilos -->
+  <link rel="stylesheet" href="../assets/css/estilosAdmin.css">
 </head>
 
-<body class="body-login">
-  
-  <div class="login-wrapper">
-    <a href="#" id="close-login" class="close-button"><i class="bi bi-x-lg"></i></a>
-    <div class="container" id="container">
-    
-      <div class="form-container register-container">
-        <form id="registerForm">
-          <h1>Regístrate aquí</h1>
-          <input type="text" placeholder="Nombre" id="register-nombre" required>
-          <input type="email" placeholder="Email" id="register-email" required>
-          <input type="password" placeholder="Contraseña" id="register-password" required>
-          
-          <button type="submit" class="btn-register">Regístrate</button>
-          <span>o usa tu cuenta</span>
-          <div class="social-container">
-            <a href="#" class="social"><i class="bi bi-google"></i></a>
-            <a href="#" class="social"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="social"><i class="bi bi-instagram"></i></a>
-          </div>
-        </form>
-      </div>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>Golden Burger</h2>
+    <ul>
+        <li><a href="/paginasAdmin/dashboard.html">Dashboard</a></li>
+        <li><a href="/paginasAdmin/gestionUsuarios.html">Usuarios</a></li>
+        <li><a href="/paginasAdmin/gestionPedidos.html">Pedidos</a></li>
+        <li><a href="/paginasAdmin/gestion-productos.html">Productos</a></li>
+    </ul>
 
-      <div class="form-container login-container">
-        <form id="loginForm">
-          <h1>Iniciar Sesión</h1>
-          <input type="email" placeholder="Email" id="email" required>
-          <input type="password" placeholder="Contraseña" id="password" required>
-          <div class="content">
-            <div class="checkbox">
-              <input type="checkbox" name="checkbox" id="checkbox">
-              <label>Recordar</label>
-            </div>
-            <div class="pass-link">
-              <a href="#">¿Olvidaste tu contraseña?</a>
-            </div>
-          </div>
-          <button type="submit" class="btn-register">Iniciar Sesión</button>
-          <span>o usa tu cuenta</span>
-          <div class="social-container">
-            <a href="#" class="social"><i class="bi bi-google"></i></a>
-            <a href="#" class="social"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="social"><i class="bi bi-instagram"></i></a>
-          </div>
-        </form>
-      </div>
-
-      <div class="overlay-container">
-        <div class="overlay">
-          <div class="overlay-panel overlay-left">
-            <h1 class="title">Bienvenido a <br> Golden Burger</h1>
-            <p>Las mejores hamburguesas de la quinta región.</p>
-            <button class="ghost" id="login">Iniciar Sesión</button>
-          </div>
-          <div class="overlay-panel overlay-right">
-            <h1 class="title">Comienza <br> Registrándote</h1>
-            <p>Obtén un 10% de descuento en tu primera compra al registrarte.</p>
-            <button class="ghost" id="register">Registro</button>
-          </div>
-        </div>
-      </div>
-
-    </div> 
+    <div class="logout">
+      <a href="../login.html">Cerrar Sesión</a>
+    </div>
   </div>
 
-  <script src="/assets/js/login.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/assets/js/dataBase.js"></script>
-  
+  <!-- Contenido -->
+  <div class="content">
+    <h1>Bienvenido, Administrador</h1>
+
+    <!-- Tarjetas -->
+    <div class="cards">
+      <div class="card">
+        <h3>Ventas Totales</h3>
+        <p>$120,500</p>
+      </div>
+      <div class="card">
+        <h3>Usuarios Registrados</h3>
+        <p>1,245</p>
+      </div>
+      <div class="card">
+        <h3>Nuevos Clientes</h3>
+        <p>58</p>
+      </div>
+      <div class="card">
+        <h3>Tickets Soporte</h3>
+        <p>14</p>
+      </div>
+    </div>
+
+    <!-- Gráficos -->
+    <div class="charts">
+      <div class="chart-container">
+        <h4>Ventas por Mes</h4>
+        <canvas id="ventasMes"></canvas>
+      </div>
+      <div class="chart-container">
+        <h4>Progreso Objetivos</h4>
+        <canvas id="progreso"></canvas>
+      </div>
+      <div class="chart-container">
+        <h4>Ventas por Categoría</h4>
+        <canvas id="categorias"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
   <script>
-    // Espera a que todo el HTML de la página esté cargado antes de ejecutar el script.
-    document.addEventListener('DOMContentLoaded', function() {
-      
-      // --- LÓGICA PARA EL FORMULARIO DE LOGIN ---
-      const loginForm = document.getElementById('loginForm');
-      if (loginForm) {
-        
-        loginForm.addEventListener('submit', function(e) {
-          // Previene que la página se recargue, que es el comportamiento por defecto de un formulario.
-          e.preventDefault();
-          
-          // Obtiene los valores escritos por el usuario en los campos de email y contraseña.
-          const email = document.getElementById('email').value;
-          const password = document.getElementById('password').value;
+    // Gráfico de Barras: Ventas por Mes
+    new Chart(document.getElementById('ventasMes'), {
+      type: 'bar',
+      data: {
+        labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
+        datasets: [{
+          label: 'Ventas ($)',
+          data: [12000, 15000, 18000, 10000, 22000, 25000],
+          backgroundColor: '#f39c12'
+        }]
+      },
+      options: { 
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          datalabels: {
+            color: '#000',
+            anchor: 'end',
+            align: 'top'
+          }
+        }
+      },
+      plugins: [ChartDataLabels]
+    });
 
-          // Busca en la lista de usuarios si alguno coincide con el email y contraseña ingresados.
-          const usuarioValido = window.usuarios.find(u => u.email === email && u.password === password);
+    // Gráfico Circular: Progreso Objetivos
+    new Chart(document.getElementById('progreso'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Completado', 'Pendiente'],
+        datasets: [{
+          data: [75, 25],
+          backgroundColor: ['#27ae60', '#c0392b']
+        }]
+      },
+      options: { 
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          datalabels: {
+            color: '#fff',
+            formatter: (value) => value + '%'
+          }
+        }
+      },
+      plugins: [ChartDataLabels]
+    });
 
-          // Si se encontró un usuario válido...
-          if (usuarioValido) {
-            // Guarda en el navegador que el usuario ha iniciado sesión y su nombre.
-            localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('userName', usuarioValido.nombre);
-            
-            // Lógica de redirección segñun si es admin o cliente
-            if (usuarioValido.email === 'admin@profesor.duocuc.cl') {
-              // Si es el admin, lo envía directamente a su panel de control.
-              window.location.href = '/paginasAdmin/dashboard.html';
-            } else {
-              // Si es un cliente, lo envía a la página de inicio o a la que intentaba visitar antes.
-              const redirectUrl = localStorage.getItem('redirectAfterLogin') || '/index.html';
-              localStorage.removeItem('redirectAfterLogin'); 
-              window.location.href = redirectUrl;
+    // Gráfico de Torta: Ventas por Categoría
+    new Chart(document.getElementById('categorias'), {
+      type: 'pie',
+      data: {
+        labels: ['Hamburguesas', 'Acompañamientos', 'Bebestibles'],
+        datasets: [{
+          data: [40, 35, 25],
+          backgroundColor: ['#2980b9', '#f1c40f', '#8e44ad']
+        }]
+      },
+      options: { 
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          datalabels: {
+            color: '#fff',
+            formatter: (value, ctx) => {
+              let total = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+              let porcentaje = ((value / total) * 100).toFixed(1) + "%";
+              return porcentaje;
             }
-
-          } else {
-            // Si no se encontró un usuario, muestra un mensaje de error.
-            alert("Email o contraseña incorrectos");
           }
-        });
-      }
-
-      // --- LÓGICA DE REGISTRO ---
-      const registerForm = document.getElementById('registerForm');
-      if (registerForm) {
-        // Se activa cuando el usuario intenta enviar el formulario de registro.
-        registerForm.addEventListener('submit', function(e) {
-          e.preventDefault();
-          // Obtiene los valores de los campos de registro.
-          const nombre = document.getElementById('register-nombre').value;
-          const email = document.getElementById('register-email').value.trim(); // .trim() elimina espacios
-          const password = document.getElementById('register-password').value;
-
-          // Validación 1: Campos vacíos
-          if (!nombre || !email || !password) {
-            alert('Por favor, completa todos los campos.');
-            return; // Detiene el proceso
-          }
-
-          // Validación 2: Dominio del correo
-          const emailValido = 
-              email.endsWith('@duocuc.cl') || 
-              email.endsWith('@profesor.duocuc.cl') || 
-              email.endsWith('@gmail.com');
-
-          if (!emailValido) {
-            alert('El correo debe tener un dominio válido: @duocuc.cl, @profesor.duocuc.cl o @gmail.com');
-            return; // Detiene el proceso
-          }
-        
-          // Validación 3: El email no debe existir previamente
-          const emailExistente = window.usuarios.some(u => u.email === email);
-          if (emailExistente) {
-            alert('Este email ya está registrado.');
-            return; // Detiene el proceso
-          }
-
-          // Si todas las validaciones pasan, crea el nuevo objeto de usuario.
-          const newUser = { nombre, email, password };
-          // Lo añade a la lista de usuarios en memoria.
-          window.usuarios.push(newUser);
-          // Guarda la lista de usuarios actualizada y permanente en el navegador.
-          localStorage.setItem('usuarios', JSON.stringify(window.usuarios));
-
-          // Informa al usuario y limpia el formulario.
-          alert('¡Registro exitoso! Ahora puedes iniciar sesión.');
-          registerForm.reset();
-          // Simula un clic en el botón "Iniciar Sesión" para cambiar de panel.
-          document.getElementById('login').click();
-        });
-      }
-
-      // --- LÓGICA DEL BOTÓN DE CIERRE "X" ---
-      const closeButton = document.getElementById('close-login');
-      if (closeButton) {
-        closeButton.addEventListener('click', function(event) {
-          event.preventDefault(); // Evita que el enlace '#' mueva la página.
-          history.back();       // Envía al usuario a la página anterior en su historial.
-        });
-      }
+        }
+      },
+      plugins: [ChartDataLabels]
     });
   </script>
-
 </body>
 </html>
