@@ -1,32 +1,32 @@
 
 .product-card {
-  display: flex;
+  display: flex; /* Usamos flexbox para organizar la imagen y el texto */
   flex-direction: row;         /* Imagen a la izquierda, texto a la derecha */
-  background: #0d0e0e;        
-  border-radius: 18px;
-  overflow: hidden;            
-  box-shadow: 0 6px 18px rgba(0,0,0,.35);
+  background: #0d0e0e;       
+  border-radius: 18px;    /* Bordes redondeados */
+  overflow: hidden;            /* Para que la imagen y el texto respeten los bordes redondeados */
+  box-shadow: 0 6px 18px rgba(0,0,0,.35); /* Sombra para dar profundidad */
 }
 
 .product-img {
-  width: 50%;                  /* Mitad izquierda de la foto*/
-  height: 220px;
-  object-fit: cover;
-  display: block;
+  width: 50%;                  /* ocupa mitad izquierda*/
+  height: 220px;  /* Altura */
+  object-fit: cover; /* cubre todo el contenedor sin distorsionarse */
+  display: block; /* Elimina espacio debajo de la imagen */
 }
 
 .product-panel {
   flex: 1;                     /* Ocupa la mitad derecha de la foto */
-  padding: 16px;
+  padding: 16px;/* Espaciado interno */
   color: #fdfdfd;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: flex; /* Usamos flexbox para organizar el contenido entre filas y colmnas */
+  flex-direction: column; /* Organiza el contenido en columna */
+  justify-content: space-between; /* Espacio entre el título, descripción y precio/botón */
 }
 
 
 .text-muted {
-  color: #a29999 !important;   
+  color: #a29999 !important;   /* Texto gris claro */
 }
 
 .price {
@@ -76,7 +76,7 @@
   font-weight: bold;
 }
 
-.site-footer .list-unstyled a:hover i {
+.site-footer .list-unstyled a:hover i { 
   color: #ffc107; /* El ícono se vuelve amarillo al pasar el mouse */
   transition: color 0.2s;
 }
